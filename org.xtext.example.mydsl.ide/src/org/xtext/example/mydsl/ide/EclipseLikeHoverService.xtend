@@ -12,9 +12,9 @@ class EclipseLikeHoverService extends HoverService {
 	@Inject extension IEObjectDocumentationProvider
 	@Inject INameLabelProvider nameLabelProvider
 
-	override List<String> getContents(EObject element) {
+	override getContents(EObject element) {
 		val documentation = element.documentation
-		if(documentation === null) #[getFirstLine(element)] else #[getFirstLine(element), documentation]
+		if(documentation === null) getFirstLine(element) else getFirstLine(element) + documentation
 	}
 
 	def String getFirstLine(EObject o) {
