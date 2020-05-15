@@ -51,6 +51,10 @@
             {
                 "command": "mydsl.b",
                 "title": "MyDsl Command B"
+            },
+            {
+                "command": "mydsl.remove.xtext.greeting.proxy",
+                "title": "MyDsl: Remove Xtext Greeting"
             }
         ]
     },

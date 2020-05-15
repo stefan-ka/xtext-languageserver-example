@@ -6,4 +6,4 @@ Model:
 	greetings+=Greeting*;
 	
 Greeting:
-	'Hello' name=ID ('from' from=[Greeting])? '!';
+	'Hello' name=ID ('from' from+=[Greeting] (',' from+=[Greeting])*)? '!';

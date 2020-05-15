@@ -13,8 +13,8 @@ export function activate(context: ExtensionContext) {
     let script = context.asAbsolutePath(path.join('src', 'mydsl', 'bin', launcher));
 
     let serverOptions: ServerOptions = {
-        run : { command: script },
-        debug: { command: script, args: [], options: { env: createDebugEnv() } }
+        run : { command: script, args: ['-log'], options: { env: createDebugEnv() } },
+        debug: { command: script, args: ['-log'], options: { env: createDebugEnv() } }
     };
     
     let clientOptions: LanguageClientOptions = {
@@ -37,7 +37,18 @@ export function activate(context: ExtensionContext) {
             commands.executeCommand("mydsl.a", activeEditor.document.uri.toString());
         }
     })
+    var disposable3 =commands.registerCommand("mydsl.remove.xtext.greeting.proxy", async () => {
+        let activeEditor = window.activeTextEditor;
+        if (!activeEditor || !activeEditor.document || activeEditor.document.languageId !== 'mydsl') {
+            return;
+        }
+
+        if (activeEditor.document.uri instanceof Uri) {
+            commands.executeCommand("mydsl.remove.xtext.greeting", activeEditor.document.uri.toString());
+        }
+    })
     context.subscriptions.push(disposable2);
+    context.subscriptions.push(disposable3);
     
     // enable tracing (.Off, .Messages, Verbose)
     lc.trace = Trace.Verbose;

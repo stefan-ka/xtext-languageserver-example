@@ -18,17 +18,17 @@ import org.xtext.example.mydsl.myDsl.Greeting
 class MyDslGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-        val fileName = URI.decode(resource.URI.trimFileExtension.lastSegment)
-        fsa.generateFile(fileName+"Greeter.java", '''
-        public class «fileName»Greeter {
-            
-            public static void main(String[] args) {
-                «FOR g : resource.allContents.filter(Greeting).toIterable»
-                    System.out.println("Hello «g.name» «IF g.from !== null» from «g.from.name»«ENDIF»!");
-                «ENDFOR»
-            }
-            
-        }
-        ''')
+		val fileName = URI.decode(resource.URI.trimFileExtension.lastSegment)
+		fsa.generateFile(fileName + "Greeter.java", '''
+			public class «fileName»Greeter {
+			    
+			    public static void main(String[] args) {
+			        «FOR g : resource.allContents.filter(Greeting).toIterable»
+			        	System.out.println("Hello «g.name» «IF g.from !== null && !g.from.isEmpty» from «g.from.get(0).name»«ENDIF»!");
+			        «ENDFOR»
+			    }
+			    
+			}
+		''')
 	}
 }
